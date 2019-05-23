@@ -7,7 +7,9 @@
  *
  */
 
-package com.expcube.othello;
+package com.expcube.othello.players;
+
+import com.expcube.othello.game.GameData;
 
 import java.util.regex.Pattern;
 
@@ -15,22 +17,15 @@ import java.util.regex.Pattern;
  * オセロプレイヤークラスです。
  * <BR><BR>
  */
-abstract class OthelloCuiPlayer {
-
-    /** 色 */
-    private int color;
-
-    /** 名前 */
-    private String name;
+public abstract class CuiPlayer extends Player {
 
     /**
      * コンストラクタです。
      * <BR><BR>
-     * @param color 色
      * @param name 名前
      */
-    public OthelloCuiPlayer(String name) {
-        this.name = name;
+    public CuiPlayer(String name) {
+        super(name);
     }
 
     /**
@@ -38,8 +33,8 @@ abstract class OthelloCuiPlayer {
      * <BR><BR>
      */
     public final void logic() throws Throwable {
-        System.out.println("> " + getName() + "（" + OthelloData.getColorStr(getColor()) + "）の番です。");
-        if (!OthelloData.putable(getColor())) {
+        System.out.println("> " + getName() + "（" + GameData.getColorStr(getColor()) + "）の番です。");
+        if (!GameData.putable(getColor())) {
             System.out.println("> 置く場所がないのでスキップします。");
             System.out.println();
         }
@@ -47,43 +42,10 @@ abstract class OthelloCuiPlayer {
             int[] cordinate = input();
             int x = cordinate[0], y = cordinate[1];
             System.out.println("> 入力値 : " + x + "/" + y);
-            OthelloData.reverse(getColor(), x, y);
+            GameData.reverse(getColor(), x, y);
             Thread.sleep(100);
         }
         System.out.println();
-    }
-
-    /**
-     * 指し手の入力操作を定義します。
-     * <BR><BR>
-     */
-    public abstract int[] input();
-
-    /**
-     * 自身の色を設定します。
-     * <BR><BR>
-     * @param color 色
-     */
-    public void setColor(int color) {
-        this.color = color;
-    }
-
-    /**
-     * 自身の色を取得します。
-     * <BR><BR>
-     * @return 自身の色を返却します。
-     */
-    public int getColor() {
-        return this.color;
-    }
-
-    /**
-     * 自身の名前を取得します。
-     * <BR><BR>
-     * @return 自身の名前を返却します。
-     */
-    public String getName() {
-        return this.name;
     }
 
     /**

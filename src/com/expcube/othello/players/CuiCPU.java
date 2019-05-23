@@ -7,29 +7,30 @@
  *
  */
 
-package com.expcube.othello;
+package com.expcube.othello.players;
+
+import com.expcube.othello.game.GameData;
 
 /**
  * オセロのCPUクラスです。
  */
-class OthelloCuiCPU extends OthelloCuiPlayer{
+public class CuiCPU extends CuiPlayer {
 
     /**
      * コンストラクタです。
      * <BR><BR>
-     * @param color 色
      * @param name 名前
      */
-    public OthelloCuiCPU(String name) {
+    public CuiCPU(String name) {
         super(name);
     }
 
     @Override
     public int[] input() {
         int[] cordinate = new int[2];
-        for (int i = 0; i < OthelloData.getBoard().length; i++) {
-            for (int j = 0; j < OthelloData.getBoard()[i].length; j++) {
-                if (OthelloData.canPutTo(getColor(), j, i)) {
+        for (int i = 0; i < GameData.getBoard().length; i++) {
+            for (int j = 0; j < GameData.getBoard()[i].length; j++) {
+                if (GameData.canPutTo(getColor(), j, i)) {
                     cordinate[0] = j;
                     cordinate[1] = i;
                 }

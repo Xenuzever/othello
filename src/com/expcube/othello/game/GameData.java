@@ -7,7 +7,9 @@
  *
  */
 
-package com.expcube.othello;
+package com.expcube.othello.game;
+
+import com.expcube.othello.constants.CommonConst;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -17,7 +19,7 @@ import java.util.List;
  * オセロデータクラスです。
  * <BR><BR>
  */
-abstract class OthelloData {
+public abstract class GameData {
 
     /** 盤面 */
     private static byte[][] board;
@@ -48,11 +50,11 @@ abstract class OthelloData {
      * @return 勝者の色を返却します。
      */
     public static int getWinnersColor() {
-        if (countColorOf(OthelloCommonConst.WHITE) > countColorOf(OthelloCommonConst.BLACK)) {
-            return OthelloCommonConst.WHITE;
+        if (countColorOf(CommonConst.WHITE) > countColorOf(CommonConst.BLACK)) {
+            return CommonConst.WHITE;
         }
-        else if (countColorOf(OthelloCommonConst.WHITE) < countColorOf(OthelloCommonConst.BLACK)) {
-            return OthelloCommonConst.BLACK;
+        else if (countColorOf(CommonConst.WHITE) < countColorOf(CommonConst.BLACK)) {
+            return CommonConst.BLACK;
         }
         return 0;
     }
@@ -64,14 +66,14 @@ abstract class OthelloData {
      */
     public static boolean checkTheGame() {
         // どちらかの色しか残っていない場合
-        if (countColorOf(OthelloCommonConst.WHITE) == 0 || countColorOf(OthelloCommonConst.BLACK) == 0) {
+        if (countColorOf(CommonConst.WHITE) == 0 || countColorOf(CommonConst.BLACK) == 0) {
             return true;
         }
         // 全て埋まっているか検証
         for (byte[] xBoard : getBoard()) {
             for (byte stone : xBoard) {
                 // 一つでも空きが見つかった場合false
-                if (stone == OthelloCommonConst.BLANK) return false;
+                if (stone == CommonConst.BLANK) return false;
             }
         }
         return true;
@@ -109,39 +111,39 @@ abstract class OthelloData {
         int xIndex = arrayPoints[0];
         int yIndex = arrayPoints[1];
         // すでに石が置いてある場合
-        if (getColorOf(xIndex, yIndex) != OthelloCommonConst.BLANK) {
+        if (getColorOf(xIndex, yIndex) != CommonConst.BLANK) {
             retValue = false;
         }
         // 上方向に反転可能な場合
-        else if (canPlaceToThe(OthelloCommonConst.VECTOR_UPPER, color, xIndex, yIndex)) {
+        else if (canPlaceToThe(CommonConst.VECTOR_UPPER, color, xIndex, yIndex)) {
             retValue = true;
         }
         // 右方向に反転可能な場合
-        else if (canPlaceToThe(OthelloCommonConst.VECTOR_RIGHT, color, xIndex, yIndex)) {
+        else if (canPlaceToThe(CommonConst.VECTOR_RIGHT, color, xIndex, yIndex)) {
             retValue = true;
         }
         // 右方向に反転可能な場合
-        else if (canPlaceToThe(OthelloCommonConst.VECTOR_BOTTOM, color, xIndex, yIndex)) {
+        else if (canPlaceToThe(CommonConst.VECTOR_BOTTOM, color, xIndex, yIndex)) {
             retValue = true;
         }
         // 左方向に反転可能な場合
-        else if (canPlaceToThe(OthelloCommonConst.VECTOR_LEFT, color, xIndex, yIndex)) {
+        else if (canPlaceToThe(CommonConst.VECTOR_LEFT, color, xIndex, yIndex)) {
             retValue = true;
         }
         // 右上方向に反転可能な場合
-        else if (canPlaceToThe(OthelloCommonConst.VECTOR_UPPER_RIGHT, color, xIndex, yIndex)) {
+        else if (canPlaceToThe(CommonConst.VECTOR_UPPER_RIGHT, color, xIndex, yIndex)) {
             retValue = true;
         }
         // 左上方向に反転可能な場合
-        else if (canPlaceToThe(OthelloCommonConst.VECTOR_UPPER_LEFT, color, xIndex, yIndex)) {
+        else if (canPlaceToThe(CommonConst.VECTOR_UPPER_LEFT, color, xIndex, yIndex)) {
             retValue = true;
         }
         // 右下方向に反転可能な場合
-        else if (canPlaceToThe(OthelloCommonConst.VECTOR_BOTTOM_RIGHT, color, xIndex, yIndex)) {
+        else if (canPlaceToThe(CommonConst.VECTOR_BOTTOM_RIGHT, color, xIndex, yIndex)) {
             retValue = true;
         }
         // 左下方向に反転可能な場合
-        else if (canPlaceToThe(OthelloCommonConst.VECTOR_BOTTOM_LEFT, color, xIndex, yIndex)) {
+        else if (canPlaceToThe(CommonConst.VECTOR_BOTTOM_LEFT, color, xIndex, yIndex)) {
             retValue = true;
         }
         return retValue;
@@ -198,22 +200,22 @@ abstract class OthelloData {
      * @return 色を返却します。
      */
     public static int getColorOf(final int VECTOR, int xIndex, int yIndex) {
-        int retColor = OthelloCommonConst.BLANK;
-        if (OthelloCommonConst.VECTOR_UPPER == VECTOR) {
+        int retColor = CommonConst.BLANK;
+        if (CommonConst.VECTOR_UPPER == VECTOR) {
             retColor = getColorOf(xIndex - 1, yIndex);
-        } else if (OthelloCommonConst.VECTOR_RIGHT == VECTOR) {
+        } else if (CommonConst.VECTOR_RIGHT == VECTOR) {
             retColor = getColorOf(xIndex, yIndex + 1);
-        } else if (OthelloCommonConst.VECTOR_BOTTOM == VECTOR) {
+        } else if (CommonConst.VECTOR_BOTTOM == VECTOR) {
             retColor = getColorOf(xIndex + 1, yIndex);
-        } else if (OthelloCommonConst.VECTOR_LEFT == VECTOR) {
+        } else if (CommonConst.VECTOR_LEFT == VECTOR) {
             retColor = getColorOf(xIndex, yIndex - 1);
-        } else if (OthelloCommonConst.VECTOR_UPPER_RIGHT == VECTOR) {
+        } else if (CommonConst.VECTOR_UPPER_RIGHT == VECTOR) {
             retColor = getColorOf(xIndex - 1, yIndex + 1);
-        } else if (OthelloCommonConst.VECTOR_UPPER_LEFT == VECTOR) {
+        } else if (CommonConst.VECTOR_UPPER_LEFT == VECTOR) {
             retColor = getColorOf(xIndex - 1, yIndex - 1);
-        } else if (OthelloCommonConst.VECTOR_BOTTOM_RIGHT == VECTOR) {
+        } else if (CommonConst.VECTOR_BOTTOM_RIGHT == VECTOR) {
             retColor = getColorOf(xIndex + 1, yIndex + 1);
-        } else if (OthelloCommonConst.VECTOR_BOTTOM_LEFT == VECTOR) {
+        } else if (CommonConst.VECTOR_BOTTOM_LEFT == VECTOR) {
             retColor = getColorOf(xIndex + 1, yIndex - 1);
         }
         return retColor;
@@ -264,7 +266,7 @@ abstract class OthelloData {
             return true;
         }
         // 空白の場合終了
-        else if (getColorOf(xIndex, yIndex) == OthelloCommonConst.BLANK) {
+        else if (getColorOf(xIndex, yIndex) == CommonConst.BLANK) {
             return true;
         }
         // 相手の色の場合続行
@@ -283,7 +285,6 @@ abstract class OthelloData {
     /**
      * 盤面に石を起きます。
      * <BR><BR>
-     * @param VECTOR 方向
      * @param COLOR 色
      * @param xIndex Xインデックス
      * @param yIndex Yインデックス
@@ -298,7 +299,7 @@ abstract class OthelloData {
         // 上方向に反転可能かチェック
         if (xIndex > 1) {
             // 一つ上が相手の色の場合検証する
-            if (getColorOf(OthelloCommonConst.VECTOR_UPPER, xIndex, yIndex) == ENEMY_COLOR) {
+            if (getColorOf(CommonConst.VECTOR_UPPER, xIndex, yIndex) == ENEMY_COLOR) {
                 List<int[]> innerList = new LinkedList<int[]>();
                 for (int i = xIndex - 1, j = yIndex; 0 <= i; i--) {
                     if (addReverseList(reverseList, innerList, COLOR, i, j)) break;
@@ -308,7 +309,7 @@ abstract class OthelloData {
         // 右方向に置けるか検証
         if (yIndex < getBoard()[xIndex].length - 2) {
             // 一つ右が相手の色の場合検証する
-            if (getColorOf(OthelloCommonConst.VECTOR_RIGHT, xIndex, yIndex) == ENEMY_COLOR) {
+            if (getColorOf(CommonConst.VECTOR_RIGHT, xIndex, yIndex) == ENEMY_COLOR) {
                 List<int[]> innerList = new LinkedList<int[]>();
                 for (int i = xIndex, j = yIndex + 1; j < getBoard()[xIndex].length; j++) {
                     if (addReverseList(reverseList, innerList, COLOR, i, j)) break;
@@ -318,7 +319,7 @@ abstract class OthelloData {
         // 下方向に置けるか検証
         if (xIndex < getBoard().length - 2) {
             // 一つ下が相手の色の場合検証する
-            if (getColorOf(OthelloCommonConst.VECTOR_BOTTOM, xIndex, yIndex) == ENEMY_COLOR) {
+            if (getColorOf(CommonConst.VECTOR_BOTTOM, xIndex, yIndex) == ENEMY_COLOR) {
                 List<int[]> innerList = new LinkedList<int[]>();
                 for (int i = xIndex + 1, j = yIndex; i < getBoard().length; i++) {
                     if (addReverseList(reverseList, innerList, COLOR, i, j)) break;
@@ -328,7 +329,7 @@ abstract class OthelloData {
         // 左方向に置けるか検証
         if (yIndex > 1) {
             // 一つ左が相手の色の場合検証する
-            if (getColorOf(OthelloCommonConst.VECTOR_LEFT, xIndex, yIndex) == ENEMY_COLOR) {
+            if (getColorOf(CommonConst.VECTOR_LEFT, xIndex, yIndex) == ENEMY_COLOR) {
                 List<int[]> innerList = new LinkedList<int[]>();
                 for (int i = xIndex, j = yIndex - 1; 0 <= j; j--) {
                     if (addReverseList(reverseList, innerList, COLOR, i, j)) break;
@@ -338,7 +339,7 @@ abstract class OthelloData {
         // 右上方向に置けるか検証
         if (xIndex > 1 && yIndex < getBoard()[xIndex].length - 2) {
             // 一つ右上が相手の色の場合検証する
-            if (getColorOf(OthelloCommonConst.VECTOR_UPPER_RIGHT, xIndex, yIndex) == ENEMY_COLOR) {
+            if (getColorOf(CommonConst.VECTOR_UPPER_RIGHT, xIndex, yIndex) == ENEMY_COLOR) {
                 List<int[]> innerList = new LinkedList<int[]>();
                 for (int i = xIndex - 1, j = yIndex + 1; 0 <= i || j < getBoard()[i].length; i--, j++) {
                     if (addReverseList(reverseList, innerList, COLOR, i, j)) break;
@@ -348,7 +349,7 @@ abstract class OthelloData {
         // 左上方向に置けるか検証
         if (xIndex > 1 && yIndex > 1) {
             // 一つ上が相手の色の場合検証する
-            if (getColorOf(OthelloCommonConst.VECTOR_UPPER_LEFT, xIndex, yIndex) == ENEMY_COLOR) {
+            if (getColorOf(CommonConst.VECTOR_UPPER_LEFT, xIndex, yIndex) == ENEMY_COLOR) {
                 List<int[]> innerList = new LinkedList<int[]>();
                 for (int i = xIndex - 1, j = yIndex - 1; 0 <= i || 0 <= j; i--, j--) {
                     if (addReverseList(reverseList, innerList, COLOR, i, j)) break;
@@ -358,7 +359,7 @@ abstract class OthelloData {
         // 右下方向に置けるか検証
         if (xIndex < getBoard().length - 2 && yIndex < getBoard()[xIndex].length - 2) {
             // 一つ下が相手の色の場合検証する
-            if (getColorOf(OthelloCommonConst.VECTOR_BOTTOM_RIGHT, xIndex, yIndex) == ENEMY_COLOR) {
+            if (getColorOf(CommonConst.VECTOR_BOTTOM_RIGHT, xIndex, yIndex) == ENEMY_COLOR) {
                 List<int[]> innerList = new LinkedList<int[]>();
                 for (int i = xIndex + 1, j = yIndex + 1; i < getBoard().length
                         || j < getBoard()[xIndex].length; i++, j++) {
@@ -369,7 +370,7 @@ abstract class OthelloData {
         // 左下方向に置けるか検証
         if (xIndex < getBoard().length - 2 && yIndex > 1) {
             // 一つ下が相手の色の場合検証する
-            if (getColorOf(OthelloCommonConst.VECTOR_BOTTOM_LEFT, xIndex, yIndex) == ENEMY_COLOR) {
+            if (getColorOf(CommonConst.VECTOR_BOTTOM_LEFT, xIndex, yIndex) == ENEMY_COLOR) {
                 List<int[]> innerList = new LinkedList<int[]>();
                 for (int i = xIndex + 1, j = yIndex - 1; i < getBoard().length || 0 <= j; i++, j--) {
                     if (addReverseList(reverseList, innerList, COLOR, i, j)) break;
@@ -392,15 +393,15 @@ abstract class OthelloData {
         // 戻り値用
         boolean retValue = false;
         // 相手の石の色
-        final int ENEMY_COLOR = COLOR == OthelloCommonConst.WHITE ? OthelloCommonConst.BLACK : OthelloCommonConst.WHITE;
+        final int ENEMY_COLOR = COLOR == CommonConst.WHITE ? CommonConst.BLACK : CommonConst.WHITE;
         // 上方向に反転可能かチェック
-        if (OthelloCommonConst.VECTOR_UPPER == VECTOR) {
+        if (CommonConst.VECTOR_UPPER == VECTOR) {
             if (xIndex > 1) {
                 // 一つ上が相手の色の場合検証する
-                if (getColorOf(OthelloCommonConst.VECTOR_UPPER, xIndex, yIndex) == ENEMY_COLOR) {
+                if (getColorOf(CommonConst.VECTOR_UPPER, xIndex, yIndex) == ENEMY_COLOR) {
                     for (int i = xIndex - 1, j = yIndex; 0 <= i; i--) {
                         // 空白の場合終了
-                        if (getColorOf(i, j) == OthelloCommonConst.BLANK) {
+                        if (getColorOf(i, j) == CommonConst.BLANK) {
                             break;
                         }
                         // 相手の色の場合続行
@@ -417,13 +418,13 @@ abstract class OthelloData {
             }
         }
         // 右方向に置けるか検証
-        else if (OthelloCommonConst.VECTOR_RIGHT == VECTOR) {
+        else if (CommonConst.VECTOR_RIGHT == VECTOR) {
             if (yIndex < getBoard()[xIndex].length - 2) {
                 // 一つ右が相手の色の場合検証する
-                if (getColorOf(OthelloCommonConst.VECTOR_RIGHT, xIndex, yIndex) == ENEMY_COLOR) {
+                if (getColorOf(CommonConst.VECTOR_RIGHT, xIndex, yIndex) == ENEMY_COLOR) {
                     for (int i = xIndex, j = yIndex + 1; j < getBoard()[xIndex].length; j++) {
                         // 空白の場合終了
-                        if (getColorOf(i, j) == OthelloCommonConst.BLANK) {
+                        if (getColorOf(i, j) == CommonConst.BLANK) {
                             break;
                         }
                         // 相手の色の場合続行
@@ -440,14 +441,14 @@ abstract class OthelloData {
             }
         }
         // 下方向に置けるか検証
-        else if (OthelloCommonConst.VECTOR_BOTTOM == VECTOR) {
+        else if (CommonConst.VECTOR_BOTTOM == VECTOR) {
             if (xIndex < getBoard().length - 2) {
                 // 一つ下が相手の色の場合検証する
-                if (getColorOf(OthelloCommonConst.VECTOR_BOTTOM, xIndex, yIndex) == ENEMY_COLOR) {
+                if (getColorOf(CommonConst.VECTOR_BOTTOM, xIndex, yIndex) == ENEMY_COLOR) {
                     for (int i = xIndex + 1, j = yIndex; i < getBoard().length; i++) {
 
                         // 空白の場合終了
-                        if (getColorOf(i, j) == OthelloCommonConst.BLANK) {
+                        if (getColorOf(i, j) == CommonConst.BLANK) {
                             break;
                         }
                         // 相手の色の場合続行
@@ -464,14 +465,14 @@ abstract class OthelloData {
             }
         }
         // 左方向に置けるか検証
-        else if (OthelloCommonConst.VECTOR_LEFT == VECTOR) {
+        else if (CommonConst.VECTOR_LEFT == VECTOR) {
             if (yIndex > 1) {
                 // 一つ左が相手の色の場合検証する
-                if (getColorOf(OthelloCommonConst.VECTOR_LEFT, xIndex, yIndex) == ENEMY_COLOR) {
+                if (getColorOf(CommonConst.VECTOR_LEFT, xIndex, yIndex) == ENEMY_COLOR) {
                     for (int i = xIndex, j = yIndex - 1; 0 <= j; j--) {
 
                         // 空白の場合終了
-                        if (getColorOf(i, j) == OthelloCommonConst.BLANK) {
+                        if (getColorOf(i, j) == CommonConst.BLANK) {
                             break;
                         }
                         // 相手の色の場合続行
@@ -488,15 +489,15 @@ abstract class OthelloData {
             }
         }
         // 右上方向に置けるか検証
-        else if (OthelloCommonConst.VECTOR_UPPER_RIGHT == VECTOR) {
+        else if (CommonConst.VECTOR_UPPER_RIGHT == VECTOR) {
             if (xIndex > 1 && yIndex < getBoard()[xIndex].length - 2) {
                 // 一つ右上が相手の色の場合検証する
-                if (getColorOf(OthelloCommonConst.VECTOR_UPPER_RIGHT, xIndex, yIndex) == ENEMY_COLOR) {
+                if (getColorOf(CommonConst.VECTOR_UPPER_RIGHT, xIndex, yIndex) == ENEMY_COLOR) {
                     for (int i = xIndex - 1, j = yIndex + 1; 0 <= i || j < getBoard()[xIndex].length; i--, j++) {
                         if (i < 0 || j >= 8)
                             break;
                         // 空白の場合終了
-                        if (getColorOf(i, j) == OthelloCommonConst.BLANK) {
+                        if (getColorOf(i, j) == CommonConst.BLANK) {
                             break;
                         }
                         // 相手の色の場合続行
@@ -513,15 +514,15 @@ abstract class OthelloData {
             }
         }
         // 左上方向に置けるか検証
-        else if (OthelloCommonConst.VECTOR_UPPER_LEFT == VECTOR) {
+        else if (CommonConst.VECTOR_UPPER_LEFT == VECTOR) {
             if (xIndex > 1 && yIndex > 1) {
                 // 一つ上が相手の色の場合検証する
-                if (getColorOf(OthelloCommonConst.VECTOR_UPPER_LEFT, xIndex, yIndex) == ENEMY_COLOR) {
+                if (getColorOf(CommonConst.VECTOR_UPPER_LEFT, xIndex, yIndex) == ENEMY_COLOR) {
                     for (int i = xIndex - 1, j = yIndex - 1; 0 <= i || 0 <= j; i--, j--) {
                         if (i < 0 || j < 0)
                             break;
                         // 空白の場合終了
-                        if (getColorOf(i, j) == OthelloCommonConst.BLANK) {
+                        if (getColorOf(i, j) == CommonConst.BLANK) {
                             break;
                         }
                         // 相手の色の場合続行
@@ -538,16 +539,16 @@ abstract class OthelloData {
             }
         }
         // 右下方向に置けるか検証
-        else if (OthelloCommonConst.VECTOR_BOTTOM_RIGHT == VECTOR) {
+        else if (CommonConst.VECTOR_BOTTOM_RIGHT == VECTOR) {
             if (xIndex < getBoard().length - 2 && yIndex < getBoard()[xIndex].length - 2) {
                 // 一つ下が相手の色の場合検証する
-                if (getColorOf(OthelloCommonConst.VECTOR_BOTTOM_RIGHT, xIndex, yIndex) == ENEMY_COLOR) {
+                if (getColorOf(CommonConst.VECTOR_BOTTOM_RIGHT, xIndex, yIndex) == ENEMY_COLOR) {
                     for (int i = xIndex + 1, j = yIndex + 1; i < getBoard().length
                             || j < getBoard()[xIndex].length; i++, j++) {
                         if (i >= 8 || j >= 8)
                             break;
                         // 空白の場合終了
-                        if (getColorOf(i, j) == OthelloCommonConst.BLANK) {
+                        if (getColorOf(i, j) == CommonConst.BLANK) {
                             break;
                         }
                         // 相手の色の場合続行
@@ -564,15 +565,15 @@ abstract class OthelloData {
             }
         }
         // 左下方向に置けるか検証
-        else if (OthelloCommonConst.VECTOR_BOTTOM_LEFT == VECTOR) {
+        else if (CommonConst.VECTOR_BOTTOM_LEFT == VECTOR) {
             if (xIndex < getBoard().length - 2 && yIndex > 1) {
                 // 一つ下が相手の色の場合検証する
-                if (getColorOf(OthelloCommonConst.VECTOR_BOTTOM_LEFT, xIndex, yIndex) == ENEMY_COLOR) {
+                if (getColorOf(CommonConst.VECTOR_BOTTOM_LEFT, xIndex, yIndex) == ENEMY_COLOR) {
                     for (int i = xIndex + 1, j = yIndex - 1; i < getBoard().length || 0 <= j; i++, j--) {
                         if (i >= 8 || j < 0)
                             break;
                         // 空白の場合終了
-                        if (getColorOf(i, j) == OthelloCommonConst.BLANK) {
+                        if (getColorOf(i, j) == CommonConst.BLANK) {
                             break;
                         }
                         // 相手の色の場合続行
@@ -598,9 +599,9 @@ abstract class OthelloData {
      * @return 色名を返却します。
      */
     public static String getColorStr(final int COLOR) {
-        if (OthelloCommonConst.WHITE == COLOR) {
+        if (CommonConst.WHITE == COLOR) {
             return "白";
-        } else if (OthelloCommonConst.BLACK == COLOR) {
+        } else if (CommonConst.BLACK == COLOR) {
             return "黒";
         } else {
             return "なし";

@@ -7,12 +7,12 @@
  *
  */
 
-package com.expcube.othello;
+package com.expcube.othello.constants;
 
 /**
  * オセロ共通定数クラスです。
  */
-class OthelloCommonConst {
+public class CommonConst {
 
     /**
      * 改行コード

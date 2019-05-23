@@ -7,7 +7,9 @@
  *
  */
 
-package com.expcube.othello;
+package com.expcube.othello.players;
+
+import com.expcube.othello.game.GameData;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,14 +19,14 @@ import java.io.InputStreamReader;
  * オセロユーザー操作クラスです。
  * <BR><BR>
  */
-class OthelloCuiUser extends OthelloCuiPlayer {
+public class CuiUser extends CuiPlayer {
 
     /**
      * コンストラクタです。
      * <BR><BR>
      * @param name 名前
      */
-    public OthelloCuiUser(String name) {
+    public CuiUser(String name) {
         super(name);
     }
 
@@ -50,8 +52,8 @@ class OthelloCuiUser extends OthelloCuiPlayer {
                 continue;
             }
             // 入力可能かチェック
-            if (OthelloData.canPutTo(getColor(), x, y)) {
-                OthelloData.reverse(getColor(), x, y);
+            if (GameData.canPutTo(getColor(), x, y)) {
+                GameData.reverse(getColor(), x, y);
             }
             else {
                 System.out.println(x + " " + y);
